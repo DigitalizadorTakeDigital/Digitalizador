@@ -1,0 +1,5 @@
+<xml>
+	<!-- WEB -->
+	<product id="TRANSP01" name="TRANSP01" path="transp01.xml" />
+	<product id="TRANSP02" name="TRANSP02" path="transp02.xml" />
+</xml>

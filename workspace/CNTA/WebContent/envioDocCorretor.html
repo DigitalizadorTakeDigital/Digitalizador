@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=10">
+	<link type="text/css" href="includes_doc_corretor\css\style.css" rel="stylesheet">
+	<script type="text/javascript" src="includes_doc_corretor\js\script.js"></script>
+	<script type="text/javascript" src="includes_doc_corretor\js\listaSucursal.js"></script>
+	<script type="text/javascript" src="includes_doc_corretor\js\tipoSegmento.js"></script>
+	<script type="text/javascript" src="js\jquery-3.3.1.min.js"></script>
+
+	<title>Manutenção de Cadastro do Corretor</title>
+</head>
+<body onload="iniciar();">
+	<h1 style="padding-left:15%">Envio de Documentos para Atualização do Cadastro</h1>
+	<form name="dados" id="dados" action="#" method="GET">
+		<div id="divFormulario">
+		<input type="hidden" id="token" name="token" ></input>
+			<fieldset>
+				<legend>Dados do Corretor</legend><br />
+				<center>
+				   <label>CPF/CNPJ:</label>
+				   <input style="margin-left: 5px;" type="text" id="cpfCnpj" name="cpfCnpj"  maxlength="18" required="true" disabled="disabled"></input>
+				   
+				   <label style="margin-left: 5px;">E-mail:</label>
+				   <input type="text" id="email" name="email" placeholder="@bseguradora.com.br" required="true" onblur="validacaoEmail(dados.email)"></input>*
+				   <span id="validaEmail" style="color:red; width:50px; position:absolute; margin-top:10px; display:none;">X</span><br /> <br />
+				   
+				   <label>Telefone:</label>
+				   <input type="number" id="tel" name="tel"placeholder="(99)9999-9999" maxlength="10" required="true"></input>*
+				   
+				   <label>Celular:</label>
+				   <input type="number" id="cel" name="cel" placeholder="(99)99999-9999 " maxlength="11"></input>
+
+
+				   <br /><br />
+			   </center>
+			</fieldset><br /><br />	
+			<fieldset>
+				<legend>Dados da Manutenção</legend><br />
+				<center>
+				   <label>Regional:</label>
+				   <select id="regional" onchange="listaSucursal(this.value), limpaSelecoes(), limpaSegmento()" required="true" name="regional" autocomplete="false" >
+						<option value="" selected disabled>Selecione</option>
+						<option value="1">CO/N</option>
+						<option value="2">MG</option>
+						<option value="3">NE</option>
+						<option value="4">PR/SC</option>
+						<option value="5">RJ/ES</option>
+						<option value="6">RS</option>
+						<option value="7">SP CAPITAL</option>
+						<option value="8">SP INTERIOR</option>
+				   </select>*
+				   
+				   <label>Sucursal:</label> 
+				   <select id="sucursal" name="suc" disabled="true" onchange="listaSegmentos(this.value), msgManutencao(), limpaSelecoes()" required="true">
+					  <option value="" selected disabled>Selecione</option>
+				   </select>* <br /> <br />
+			
+			       <label>Segmento:</label> 
+				   <select id="segmento" name="seg"  disabled="true" required="true" >
+				   <option value="" selected disabled>Selecione</option>
+				   </select>
+			
+				   <label style="margin-left: 5px;">Tipo de Serviço:</label> 
+				   <select id="tipoServico" name="serv" required="true" onchange="msgManutencao(this.value), limpaTipoPessoa()" disabled>
+						<option value="" selected disabled>Selecione</option>
+						<option value="1">Razão Social/Nome</option>
+						<option value="2">Endereço Fiscal</option>
+						<option value="3">Endereço Comercial</option>
+						<option value="4">Dados Bancários</option>
+<!-- 						<option value="5">SUSEP</option> -->
+						<option value="6">Composição Societária</option>
+ 						<option value="7">Declaração de INSS PF</option>
+						<option value="8">ISS Simples Nacional</option>
+						<option value="9">Dependente IR</option>
+						<option value="10">Isenção Tributo PF e PJ</option>
+<!--						<option value="11">Exclusão de Perfil</option>
+						<option value="12">Inclusão de Sucursal</option>
+						<option value="13">Alteração de Sucursal</option>
+						<option value="14">Desistência</option>
+						<option value="15">Retorno ao Quadro</option> -->
+				   </select>*<br /> <br />
+					
+				   <label style="margin-left: 5px;">Tipo:</label>	
+				   <input type="radio" name="tipoPessoa" id="tipoPessoa" value="1" required="true" onchange="listaPapel(), limpaDocs()">Pessoa Física</label>
+				   <input type="radio" name="tipoPessoa" id="tipoPessoa" value="2" required="true" onchange="listaPapel(), limpaDocs()">Pessoa Jurídica</label>
+						
+				   <label style="margin-left: 5px;">Papel:</label> 
+				   <select id="papel" name="papel" required="true" disabled="true">
+						<option value="" selected disabled>Selecione</option>
+						<!-- <option value="1">Angariador</option>
+						<option value="2">Angariador não receb.</option>
+						<option value="3">Assessoria</option>
+						<option value="4">Corretor</option>
+						<option value="5">Funcionário</option>
+						<option value="6">Imobiliária</option>
+						<option value="7">Master</option>
+						<option value="8">Pro Labore</option>
+						<option value="9">Repres. Segs</option> -->
+				   </select>*<br /><br />
+				
+				   <div class="msgManutencao" id="mManutencao"></div>
+				
+				</center><br /><br /><br />
+				
+		    </fieldset>
+			<p>Os campos marcados com asterisco (*) são de preenchimento obrigatório.</p> 
+		</div><br />
+			
+		<div class="divDocumentos">
+			<fieldset>
+				<legend>Documentação</legend><br /><br />
+				<table class="docNecessario">
+					<tr>
+						<td id="documentosNecessarios" class="documentos" disabled="true" ></td>
+					</tr>
+				</table>
+			</fieldset><br />
+		<p>Documentos marcados com asterísco(*) são obrigatórios!</p>	
+		</div>
+		
+		<div class="botoes">
+			<input role="digitalizar"  id="btnDigitalizar" class="bt" type="button" value="Digitalizar" onclick="retirarMaskCnpjCpf(), validaCampos()"></input>
+		</div>
+	</form>
+</body>
+<script>
+$(document).on("change", "#papel", function() {
+	
+	var segmento = document.getElementById("segmento").value;
+	var tipoServico = document.getElementById("tipoServico").value;
+	var papel = document.getElementById("papel").value;
+	var tipoPessoa = "";
+	var docsPessoa = document.getElementsByName('tipoPessoa');
+	for (var i=0;i<docsPessoa.length;i++){
+	  if ( docsPessoa[i].checked ) {
+		  tipoPessoa = docsPessoa[i].value;
+	  }
+	}
+
+	$.get("manutencaoCadastral?tipoServico="+tipoServico+"&papel="+papel+"&tipoPessoa="+tipoPessoa+"&segmento="+segmento, function(responseJson) {
+		
+	    document.querySelector("#documentosNecessarios").innerHTML = responseJson;
+	    
+	    if(responseJson.match(/Não existe esta manutenção/)){
+	    	
+	    	document.getElementById('btnDigitalizar').disabled = true;
+	    	
+	    }else{
+	    	document.getElementById('btnDigitalizar').disabled = false;
+	    }
+
+	}); 
+});
+</script>
+
+</html>

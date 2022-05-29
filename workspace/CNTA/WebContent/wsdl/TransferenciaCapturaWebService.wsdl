@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://webservice.funcao.coletacorporativaws.bgcc.bradseg.com.br/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="TransferenciaCapturaWebServiceService" targetNamespace="http://webservice.funcao.coletacorporativaws.bgcc.bradseg.com.br/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservice.funcao.coletacorporativaws.bgcc.bradseg.com.br/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservice.funcao.coletacorporativaws.bgcc.bradseg.com.br/">
+  <xs:element name="transmitirCapturaWebService" type="tns:transmitirCapturaWebService"></xs:element>
+  <xs:element name="transmitirCapturaWebServiceResponse" type="tns:transmitirCapturaWebServiceResponse"></xs:element>
+  <xs:complexType name="transmitirCapturaWebService">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nomeArquivo" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="arquivo" type="xs:base64Binary"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="transmitirCapturaWebServiceResponse">
+    <xs:sequence></xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="message">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="key" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="message" type="xs:string"></xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="parameters" nillable="true" type="xs:anyType"></xs:element>
+      <xs:element name="type" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IntegrationException" type="tns:IntegrationException"></xs:element>
+  <xs:complexType name="IntegrationException">
+    <xs:sequence>
+      <xs:element name="message" nillable="true" type="xs:string"></xs:element>
+      <xs:element name="requestId" nillable="true" type="xs:string"></xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="messages" type="tns:message"></xs:element>
+      <xs:element minOccurs="0" name="message" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="transmitirCapturaWebService">
+    <wsdl:part element="tns:transmitirCapturaWebService" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IntegrationException">
+    <wsdl:part element="tns:IntegrationException" name="IntegrationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="transmitirCapturaWebServiceResponse">
+    <wsdl:part element="tns:transmitirCapturaWebServiceResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TransferenciaCapturaWebService">
+    <wsdl:operation name="transmitirCapturaWebService">
+      <wsdl:input message="tns:transmitirCapturaWebService" name="transmitirCapturaWebService">
+    </wsdl:input>
+      <wsdl:output message="tns:transmitirCapturaWebServiceResponse" name="transmitirCapturaWebServiceResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IntegrationException" name="IntegrationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TransferenciaCapturaWebServiceServiceSoapBinding" type="tns:TransferenciaCapturaWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="transmitirCapturaWebService">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="transmitirCapturaWebService">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="transmitirCapturaWebServiceResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="IntegrationException">
+        <soap:fault name="IntegrationException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TransferenciaCapturaWebServiceService">
+    <wsdl:port binding="tns:TransferenciaCapturaWebServiceServiceSoapBinding" name="TransferenciaCapturaWebServicePort">
+      <soap:address location="http://wsphttp.dsv.bradseg.com.br:443/BGCC-ColetaCorporativaWS/service/TransferenciaCapturaWebService"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

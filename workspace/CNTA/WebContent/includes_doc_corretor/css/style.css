@@ -1,0 +1,180 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	margin: 0px;
+	background-color: rgba(248, 248, 248, 1);
+}
+
+p {
+	text-transform: uppercase;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+}
+
+h1 {
+	font-size: 25px;
+	font-family: Arial, Tahoma, Verdana;
+	color: rgba(0, 114, 187, 1);
+	text-align: left;
+	padding: 15px;
+	margin: 15;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+#divFormulario {
+	height: 30%;
+	width: 65%;
+	margin: 10;
+	padding-left: 15%;
+}
+
+#divFormulario  #cpfCnpj {
+	background-color: #ccc;
+}
+
+#divFormulario  label {
+	width: 15%;
+	margin-right: 0;
+	display: inline-flex;
+	padding-left: 2%;
+}
+
+#divFormulario #sucursal {
+	font-size: 11px;
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border: thin solid #CCCCCC;
+	background-color: #FFFFFF;
+	width: 24%;
+}
+
+#divFormulario input[type=text], input[type=number], #divFormulario select {
+	font-size: 11px;
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border: thin solid #CCCCCC;
+	background-color: #FFFFFF;
+	width: 24%;
+	height: 30px;
+}
+#divFormulario input[type=radio] {
+	width: 2.5%;
+	height: 20px;
+}
+
+
+#divFormulario #email {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	border: thin solid #CCCCCC;
+	background-color: #FFFFFF;
+	width: 24%;
+}
+
+.divDocumentos {
+	position: relative;
+	white-space: nowrap;
+	height: 30%;
+	width: 65%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-left: 15%;
+	text-align: left;
+}
+
+.divDocumentos p {
+	text-transform: uppercase;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+.docNecessario {
+	background-color: #FFFFFF;
+	border: none;
+	width: 100%;
+	height: 400px;
+	TABLE-LAYOUT: fixed;
+	
+}
+
+.documentos{
+	border: 2px solid #b0c4de;
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+	overflow-x: scroll;
+	white-space: pre-wrap;
+	padding-left: 20px;
+	font-size: 16px;
+}
+
+.documentos h3 {
+	text-transform: uppercase;
+	color: #ff0000;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.documentos font {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 11px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.documentos p {
+	text-transform: uppercase;
+	margin: 0;
+	font-size: 11px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.botoes input[role="digitalizar"] {
+	float: right;
+}
+
+.botoes {
+	width: 60%;
+	float: left;
+	padding-left: 16%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+}
+
+.botoes input {
+	background-color: #00539f;
+	border: none;
+	color: #fff;
+	font-size: 15px;
+	font-weight: bold;
+	height: 47px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	margin-left: 0;
+	cursor: pointer;
+	min-width: 156px;
+	overflow: visible;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.msgManutencao {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #636161;
+	width: 50%;
+	height: 40px;
+	float: right;
+	text-align: left;
+	font-size: 12px;
+}
+
+.normal{
+	border: 1 solid #000;
+}
+
+.destaca{
+	border: 1 solid #ff00000;
+}

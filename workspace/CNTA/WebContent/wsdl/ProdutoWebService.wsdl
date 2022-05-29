@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://webservice.produto.recepcaopropostas.vprs.bradseg.com.br/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="ProdutoWebServiceService" targetNamespace="http://webservice.produto.recepcaopropostas.vprs.bradseg.com.br/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservice.produto.recepcaopropostas.vprs.bradseg.com.br/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservice.produto.recepcaopropostas.vprs.bradseg.com.br/">
+  <xs:element name="obterProdutoVIDA" type="tns:obterProdutoVIDA"></xs:element>
+  <xs:element name="obterProdutoVIDAResponse" type="tns:obterProdutoVIDAResponse"></xs:element>
+  <xs:complexType name="obterProdutoVIDA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoProdutoComercial" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="origemProposta" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="prefixoProposta" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="canalVenda" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="obterProdutoVIDAResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="message">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="key" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="message" type="xs:string"></xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="parameters" nillable="true" type="xs:anyType"></xs:element>
+      <xs:element name="type" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IntegrationException" type="tns:IntegrationException"></xs:element>
+  <xs:complexType name="IntegrationException">
+    <xs:sequence>
+      <xs:element name="message" nillable="true" type="xs:string"></xs:element>
+      <xs:element name="requestId" nillable="true" type="xs:string"></xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="messages" type="tns:message"></xs:element>
+      <xs:element minOccurs="0" name="message" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="obterProdutoVIDA">
+    <wsdl:part element="tns:obterProdutoVIDA" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obterProdutoVIDAResponse">
+    <wsdl:part element="tns:obterProdutoVIDAResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IntegrationException">
+    <wsdl:part element="tns:IntegrationException" name="IntegrationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ProdutoWebService">
+    <wsdl:operation name="obterProdutoVIDA">
+      <wsdl:input message="tns:obterProdutoVIDA" name="obterProdutoVIDA">
+    </wsdl:input>
+      <wsdl:output message="tns:obterProdutoVIDAResponse" name="obterProdutoVIDAResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IntegrationException" name="IntegrationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProdutoWebServiceServiceSoapBinding" type="tns:ProdutoWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="obterProdutoVIDA">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="obterProdutoVIDA">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="obterProdutoVIDAResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="IntegrationException">
+        <soap:fault name="IntegrationException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProdutoWebServiceService">
+    <wsdl:port binding="tns:ProdutoWebServiceServiceSoapBinding" name="ProdutoWebServicePort">
+      <soap:address location="http://wsphttp.dsv.bradseg.com.br/VPRS-RecepcaoPropostas/service/ProdutoWebService"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Sun Microsystems, Inc
+Implementation-Title: Java Runtime Environment
+Implementation-Version: 17233
+Application-Library-Allowable-Codebase: *
+Class-Path: com4j.jar
+Permissions: all-permissions
+Caller-Allowable-Codebase: *
+Codebase: *

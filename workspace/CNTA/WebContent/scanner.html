@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=8">
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="css/webscanner.css" />
+		<meta http-equiv="refresh" content="scanner.html" />
+		<title>GCCD</title>
+	</head>
+	<body>
+	<!--
+		<applet id="scanner" name="scanner" class="applet" code="br.com.webscanner.view.Main" archive="com4j.jar, jna.jar, scanner.jar">
+			<param name="java_arguments" value="-Xmx256m">
+			<param name="separate_jvm" value="true">			
+		</applet>
+	  -->
+		<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">
+		function returnCall(status, product){
+			alert(status);
+			var produto = jQuery.parseJSON(product);
+			alert(produto.name);
+		}
+			
+		function returnGccdFiav(produto, valor) {			
+			window.parent.postMessage(valor, '*');
+		}	
+		
+		function returnGccdFirp04(produto, valor) {
+			window.parent.postMessage(valor, '*');
+		}
+		
+		function returnGccdPccf(produto, valor) {
+			var prod = JSON.stringify(produto);
+			window.parent.postMessage(prod, '*');
+		}
+		
+		</script>
+	</body>
+</html>

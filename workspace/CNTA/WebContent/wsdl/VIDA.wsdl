@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://webservice.digitalizacao.recepcaopropostas.vprs.bradseg.com.br/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="DigitalizacaoWebServiceService" targetNamespace="http://webservice.digitalizacao.recepcaopropostas.vprs.bradseg.com.br/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservice.digitalizacao.recepcaopropostas.vprs.bradseg.com.br/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservice.digitalizacao.recepcaopropostas.vprs.bradseg.com.br/">
+  <xs:element name="solicitarProcessamento" type="tns:solicitarProcessamento"></xs:element>
+  <xs:element name="solicitarProcessamentoResponse" type="tns:solicitarProcessamentoResponse"></xs:element>
+  <xs:element name="transmitir" type="tns:transmitir"></xs:element>
+  <xs:element name="transmitirResponse" type="tns:transmitirResponse"></xs:element>
+  <xs:complexType name="solicitarProcessamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="digitalizacao" type="tns:digitalizacaoVO"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="digitalizacaoVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoProduto" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="codigoProposta" type="xs:long"></xs:element>
+      <xs:element minOccurs="0" name="numeroAdesao" type="xs:long"></xs:element>
+      <xs:element minOccurs="0" name="tipoDocumento" type="tns:tipoDocumentoEnum"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="solicitarProcessamentoResponse">
+    <xs:sequence></xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="message">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="key" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="message" type="xs:string"></xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="parameters" nillable="true" type="xs:anyType"></xs:element>
+      <xs:element name="type" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="transmitir">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoProdutoVida" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="codigoProdutoComercial" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="origemProposta" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="prefixoProposta" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="canalVenda" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="numeroProposta" type="xs:long"></xs:element>
+      <xs:element minOccurs="0" name="numeroAdesao" type="xs:long"></xs:element>
+      <xs:element minOccurs="0" name="tipoDocumento" type="tns:tipoDocumentoEnum"></xs:element>
+      <xs:element minOccurs="0" name="arquivoDigitalizado" type="xs:base64Binary"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="transmitirResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="tipoDocumentoEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PROPOSTA"></xs:enumeration>
+      <xs:enumeration value="ADESAO"></xs:enumeration>
+      <xs:enumeration value="CPF"></xs:enumeration>
+      <xs:enumeration value="RG"></xs:enumeration>
+      <xs:enumeration value="CNH"></xs:enumeration>
+      <xs:enumeration value="TITULO_ELEITOR"></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="IntegrationException" type="tns:IntegrationException"></xs:element>
+  <xs:complexType name="IntegrationException">
+    <xs:sequence>
+      <xs:element name="message" nillable="true" type="xs:string"></xs:element>
+      <xs:element name="requestId" nillable="true" type="xs:string"></xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="messages" type="tns:message"></xs:element>
+      <xs:element minOccurs="0" name="message" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BusinessException" type="tns:BusinessException"></xs:element>
+  <xs:complexType name="BusinessException">
+    <xs:sequence>
+      <xs:element name="message" nillable="true" type="xs:string"></xs:element>
+      <xs:element name="requestId" nillable="true" type="xs:string"></xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="messages" type="tns:message"></xs:element>
+      <xs:element minOccurs="0" name="message" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="solicitarProcessamento">
+    <wsdl:part element="tns:solicitarProcessamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="solicitarProcessamentoResponse">
+    <wsdl:part element="tns:solicitarProcessamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="transmitirResponse">
+    <wsdl:part element="tns:transmitirResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="BusinessException">
+    <wsdl:part element="tns:BusinessException" name="BusinessException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IntegrationException">
+    <wsdl:part element="tns:IntegrationException" name="IntegrationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="transmitir">
+    <wsdl:part element="tns:transmitir" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DigitalizacaoWebService">
+    <wsdl:operation name="solicitarProcessamento">
+      <wsdl:input message="tns:solicitarProcessamento" name="solicitarProcessamento">
+    </wsdl:input>
+      <wsdl:output message="tns:solicitarProcessamentoResponse" name="solicitarProcessamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IntegrationException" name="IntegrationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="transmitir">
+      <wsdl:input message="tns:transmitir" name="transmitir">
+    </wsdl:input>
+      <wsdl:output message="tns:transmitirResponse" name="transmitirResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:BusinessException" name="BusinessException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IntegrationException" name="IntegrationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DigitalizacaoWebServiceServiceSoapBinding" type="tns:DigitalizacaoWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="solicitarProcessamento">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="solicitarProcessamento">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="solicitarProcessamentoResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="IntegrationException">
+        <soap:fault name="IntegrationException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="transmitir">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="transmitir">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="transmitirResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BusinessException">
+        <soap:fault name="BusinessException" use="literal"></soap:fault>
+      </wsdl:fault>
+      <wsdl:fault name="IntegrationException">
+        <soap:fault name="IntegrationException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DigitalizacaoWebServiceService">
+    <wsdl:port binding="tns:DigitalizacaoWebServiceServiceSoapBinding" name="DigitalizacaoWebServicePort">
+      <soap:address location="http://wsphttp.dsv.bradseg.com.br/VPRS-RecepcaoPropostas/service/DigitalizacaoWebService"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

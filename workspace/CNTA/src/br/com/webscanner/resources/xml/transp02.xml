@@ -1,0 +1,42 @@
+<!-- WEB -->
+<!-- MAIN DESENV -->
+<xml>
+	<product id="TRANSP02" name="MULTAS">
+	  	<model exitAfterProcessed="false" splitDuplex="true" exportJpg="true" scale="30%" >
+			<features>
+				<scannable />			
+				<!-- Habilitar configuração de scanner apenas para KODAK -->
+				<scannerConfigurable grayScale="true" doubleSensor="true" blackPageConfig="true" />		
+			</features>
+		</model>
+		
+		<groups>
+			<group id="0" name="documents">
+				<document id="1" name="multa" displayName="Multa" icor="0">
+     			<field id="1" name="nomeMulta" displayName="Multa"  type="text" maxlength="15" required="true"/>			
+				</document>
+			</group>
+				<group id="1" name="paginaEmBranco">
+				<document id="0" name="paginaEmBranco" displayName="Página em Branco" icor="0"/>
+ 			</group>
+		</groups>
+		
+		<preInitialization type="TRANSP02" />
+		<validationGroup type="TRANSP02" />
+		
+		 <exportation>
+			<export type="TRANSP02" pathExport="C:\Users\jonathanbrito\Documents" ></export>
+		</exportation> 
+		
+	
+		
+		<typification>
+			<recognition type="blankPage" threshold="98%" size="1000">
+				<document id="0" />
+			</recognition>
+			<recognition type="default">
+				<document id="1"/>
+			</recognition>
+		</typification>
+	</product>
+</xml>

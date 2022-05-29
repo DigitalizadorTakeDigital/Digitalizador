@@ -1,0 +1,144 @@
+<!-- WEB -->
+<!-- MAIN DESENV -->
+<xml>
+	<product id="TRANSP01" name="Transporte">
+	  	<model exitAfterProcessed="false" splitDuplex="true" exportJpg="true" scale="30%" >
+			<features>
+				<scannable />			
+				<!-- Habilitar configuração de scanner apenas para KODAK -->
+				<scannerConfigurable grayScale="true" doubleSensor="true" blackPageConfig="true" />		
+			</features>
+		</model>
+		
+		<groups>
+			<group id="0" name="documents">
+				<document id="1" name="documento" displayName="Não Reconhecido" icor="0"/>
+				<document id="2" name="verso" displayName="Verso" icor="0"/>
+			</group> 
+			<group id="2" name="docsNF">
+				<document id="2" name="NF" displayName="Nota Fiscal" icor="0">
+				<field id="1" name="numeroNota" displayName="Nº Nota"  type="numeric" maxlength="9" required="true"/>
+				</document>
+				<document id="3" name="romaneio" displayName="Romaneio" icor="0">
+					<field id="1" name="protocolo" displayName="Nº Protocolo"  type="numeric" maxlength="10" required="true"/>
+				</document>
+				<document id="4" name="NF2" displayName="Nota Fiscal" icor="0">
+				<field id="1" name="numeroNota" displayName="Nº Nota"  type="numeric" maxlength="9" required="true"/>
+				</document>
+			</group>
+			<group id="1" name="paginaEmBranco">
+				<document id="0" name="paginaEmBranco" displayName="Página em Branco" icor="0"/>
+ 			</group>
+		</groups>
+		
+		<preInitialization type="TRANSP01" />
+		<validationGroup type="TRANSP01" />
+		
+		 <exportation>
+			<export type="TRANSP01" pathExport="C:\Users\Jhonatan\Documents\Notas FIscais SYG" pathExportCSV="C:\Users\Jhonatan\Documents\Notas FIscais SYG" pathExportRomaneio="C:\Users\Jhonatan\Documents\Notas FIscais SYG"></export>
+		</exportation> 
+		
+	
+		
+		<typification>
+			<recognition type="blankPage" threshold="98%" size="1000">
+				<document id="0" />
+			</recognition>
+			<recognition type="code128">
+				<combined>
+					<!-- BARRA EM CIMA-->
+					<positions>
+						<position x="1455" y="260" width="860" height="100" name="numeroNota" ordemBarCode="1">
+							<document id="2" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="1460" y="260" width="860" height="100" name="numeroNota" ordemBarCode="1">
+							<document id="2" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+							<position x="1465" y="260" width="860" height="100" name="numeroNota" ordemBarCode="1">
+							<document id="2" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="2242" y="192" width="125" height="317" name="protocolo" ordemBarCode="1">
+							<document id="3" orientation="" pattern="[0-9]{10}">
+								<field id="1" index="0" length="10"/>		
+							</document>
+						</position>
+						<position x="1539" y="234" width="767" height="130" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+					<position x="1505" y="325" width="831" height="40" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="1508" y="325" width="831" height="40" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="1475" y="325" width="831" height="40" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="1520" y="325" width="831" height="40" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="1449" y="300" width="860" height="40" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="1496" y="350" width="860" height="40" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="1477" y="340" width="860" height="40" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="1484" y="340" width="860" height="40" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="1456" y="300" width="860" height="40" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="1454" y="300" width="860" height="40" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						<position x="1458" y="300" width="860" height="40" name="numeroNota" ordemBarCode="1">
+							<document id="4" orientation="" pattern="[0-9]{44}">
+								<field id="1" index="25" length="9"/>
+							</document>
+						</position>
+						
+						
+					
+					
+					</positions>
+				</combined>
+			</recognition>
+
+			<recognition type="default">
+				<document id="1"/>
+			</recognition>
+		</typification>
+	</product>
+</xml>

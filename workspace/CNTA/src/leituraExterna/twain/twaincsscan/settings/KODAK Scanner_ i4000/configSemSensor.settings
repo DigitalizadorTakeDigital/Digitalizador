@@ -1,0 +1,399 @@
+<profile>
+	<header>
+		<id><![CDATA[profileall-20190227185417975]]></id>
+		<driverversion>01000000</driverversion>
+		<family>kds_i4200_i4600</family>
+		<group>profileall</group>
+		<readonly>false</readonly>
+		<hidden>false</hidden>
+		<profileid>20190227185417975</profileid>
+		<graphicfilename><![CDATA[default.png]]></graphicfilename>
+	</header>
+	<database>
+		<d i='addborder'>
+			<fb00>false</fb00>
+			<rb00>false</rb00>
+			<fc00>false</fc00>
+			<rc00>false</rc00>
+		</d>
+		<d i='adfunique'>
+			<m>false</m>
+		</d>
+		<d i='autocoloramount'>
+			<fb00>1</fb00>
+			<rb00>1</rb00>
+			<fc00>1</fc00>
+			<rc00>1</rc00>
+		</d>
+		<d i='autocolorcontent'>
+			<fb00>none</fb00>
+			<rb00>none</rb00>
+			<fc00>none</fc00>
+			<rc00>none</rc00>
+		</d>
+		<d i='autocolorthreshold'>
+			<fb00>20</fb00>
+			<rb00>20</rb00>
+			<fc00>20</fc00>
+			<rc00>20</rc00>
+		</d>
+		<d i='imagedeskew'>
+			<fb00>true</fb00>
+			<rb00>true</rb00>
+			<fc00>true</fc00>
+			<rc00>true</rc00>
+		</d>
+		<d i='background'>
+			<fb00>black</fb00>
+			<rb00>black</rb00>
+			<fc00>black</fc00>
+			<rc00>black</rc00>
+		</d>
+		<d i='backgroundadjustaggressiveness'>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='backgroundadjustapplyto'>
+			<fc00>predominate</fc00>
+			<rc00>predominate</rc00>
+		</d>
+		<d i='backgroundadjustmode'>
+			<fc00>none</fc00>
+			<rc00>none</rc00>
+		</d>
+		<d i='blankimagecontent'>
+			<fb00>0</fb00>
+			<rb00>3</rb00>
+			<fc00>0</fc00>
+			<rc00>3</rc00>
+		</d>
+		<d i='blankimagemode'>
+			<fb00>none</fb00>
+			<rb00>content</rb00>
+			<fc00>none</fc00>
+			<rc00>content</rc00>
+		</d>
+		<d i='blankimagesize'>
+			<fb00>1024</fb00>
+			<rb00>1024</rb00>
+			<fc00>1024</fc00>
+			<rc00>1024</rc00>
+		</d>
+		<d i='colorbrightness'>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='windowenabled'>
+			<fb00>true</fb00>
+			<rb00>true</rb00>
+			<fc00>false</fc00>
+			<rc00>false</rc00>
+		</d>
+		<d i='colorbalanceblue'>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='colorbalancegreen'>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='colorbalancemode'>
+			<fc00>none</fc00>
+			<rc00>none</rc00>
+		</d>
+		<d i='colorbalancered'>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='colorbrightnessmode'>
+			<fc00>none</fc00>
+			<rc00>none</rc00>
+		</d>
+		<d i='coloroutputromm'>
+			<fc00>false</fc00>
+			<rc00>false</rc00>
+		</d>
+		<d i='colorsharpen'>
+			<fc00>1</fc00>
+			<rc00>1</rc00>
+		</d>
+		<d i='compressionmode'>
+			<fb00>group4</fb00>
+			<rb00>group4</rb00>
+			<fc00>jpeg</fc00>
+			<rc00>jpeg</rc00>
+		</d>
+		<d i='contrast'>
+			<fb00>0</fb00>
+			<rb00>0</rb00>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='imagecroppingmode'>
+			<fb00>automatic</fb00>
+			<rb00>automatic</rb00>
+			<fc00>automatic</fc00>
+			<rc00>automatic</rc00>
+		</d>
+		<d i='documenttype'>
+			<fb00>textwithgraphics</fb00>
+			<rb00>textwithgraphics</rb00>
+			<fc00>textwithgraphics</fc00>
+			<rc00>textwithgraphics</rc00>
+		</d>
+		<d i='ecdoenum'>
+			<fb00>(none)</fb00>
+			<rb00>(none)</rb00>
+			<fc00>(none)</fc00>
+			<rc00>(none)</rc00>
+		</d>
+		<d i='ecdoaggressiveness'>
+			<fb00>0</fb00>
+			<rb00>0</rb00>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='adfhandling'>
+			<m>stackingimproved</m>
+		</d>
+		<d i='imageheight'>
+			<fb00>14028</fb00>
+			<rb00>14028</rb00>
+			<fc00>14028</fc00>
+			<rc00>14028</rc00>
+		</d>
+		<d i='imagewidth'>
+			<fb00>9912</fb00>
+			<rb00>9912</rb00>
+			<fc00>9912</fc00>
+			<rc00>9912</rc00>
+		</d>
+		<d i='imageoffsetx'>
+			<fb00>0</fb00>
+			<rb00>0</rb00>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='imageoffsety'>
+			<fb00>0</fb00>
+			<rb00>0</rb00>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='binarizationmode'>
+			<fb00>ithresholding</fb00>
+			<rb00>ithresholding</rb00>
+		</d>
+		<d i='holefillenabled'>
+			<fb00>true</fb00>
+			<rb00>true</rb00>
+			<fc00>true</fc00>
+			<rc00>true</rc00>
+		</d>
+		<d i='edgefillbottom'>
+			<fb00>0</fb00>
+			<rb00>0</rb00>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='edgefill'>
+			<fb00>none</fb00>
+			<rb00>none</rb00>
+			<fc00>none</fc00>
+			<rc00>none</rc00>
+		</d>
+		<d i='edgefillallsides'>
+			<fb00>true</fb00>
+			<rb00>true</rb00>
+			<fc00>true</fc00>
+			<rc00>true</rc00>
+		</d>
+		<d i='edgefillleft'>
+			<fb00>0</fb00>
+			<rb00>0</rb00>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='edgefillright'>
+			<fb00>0</fb00>
+			<rb00>0</rb00>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='edgefilltop'>
+			<fb00>0</fb00>
+			<rb00>0</rb00>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='filterimage'>
+			<fb00>none</fb00>
+			<rb00>none</rb00>
+		</d>
+		<d i='imageformat'>
+			<fb00>bw</fb00>
+			<rb00>bw</rb00>
+			<fc00>rgb_24</fc00>
+			<rc00>rgb_24</rc00>
+		</d>
+		<d i='imagemerge'>
+			<m>none</m>
+		</d>
+		<d i='imageskewangle'>
+			<fb00>0</fb00>
+			<rb00>0</rb00>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='inputdocument'>
+			<m>twosided</m>
+		</d>
+		<d i='compressionjpegquality'>
+			<fc00>good</fc00>
+			<rc00>good</rc00>
+		</d>
+		<d i='lowpowermodeunique'>
+			<m>false</m>
+		</d>
+		<d i='mediatype'>
+			<fb00>plainpaper</fb00>
+			<rb00>plainpaper</rb00>
+			<fc00>plainpaper</fc00>
+			<rc00>plainpaper</rc00>
+		</d>
+		<d i='multifeedlengthenabled'>
+			<m>false</m>
+		</d>
+		<d i='multifeedresponse'>
+			<m>endofjob</m>
+		</d>
+		<d i='multifeedsound'>
+			<m><![CDATA[ding.wav]]></m>
+		</d>
+		<d i='multifeedsoundenabled'>
+			<m>true</m>
+		</d>
+		<d i='filternoise'>
+			<fb00>lonepixel</fb00>
+			<rb00>lonepixel</rb00>
+		</d>
+		<d i='imageframelandscape'>
+			<fb00>false</fb00>
+			<rb00>false</rb00>
+			<fc00>false</fc00>
+			<rc00>false</rc00>
+		</d>
+		<d i='imagerotateorthogonal'>
+			<fb00>auto</fb00>
+			<rb00>auto</rb00>
+			<fc00>auto</fc00>
+			<rc00>auto</rc00>
+		</d>
+		<d i='multifeedlength'>
+			<m>2400</m>
+		</d>
+		<d i='papersource'>
+			<m>elevator500</m>
+		</d>
+		<d i='sheetheight'>
+			<m>20400</m>
+		</d>
+		<d i='invertcolor'>
+			<fb00>false</fb00>
+			<rb00>false</rb00>
+			<fc00>false</fc00>
+			<rc00>false</rc00>
+		</d>
+		<d i='invertcolorgroup4'>
+			<fb00>chocolate</fb00>
+			<rb00>chocolate</rb00>
+			<fc00>chocolate</fc00>
+			<rc00>chocolate</rc00>
+		</d>
+		<d i='printerdatedelimiter'>
+			<m>none</m>
+		</d>
+		<d i='printerdateformat'>
+			<m>yyyymmdd</m>
+		</d>
+		<d i='printerenabled'>
+			<m>false</m>
+		</d>
+		<d i='printerfont'>
+			<m>smallcomic</m>
+		</d>
+		<d i='printerindexdigits'>
+			<m>9</m>
+		</d>
+		<d i='printerindexformat'>
+			<m>displayleadingzeros</m>
+		</d>
+		<d i='printerposition'>
+			<m>300</m>
+		</d>
+		<d i='printerwritesequence'>
+			<m>index</m>
+		</d>
+		<d i='printerwritesequencemessage1'>
+			<m><![CDATA[111]]></m>
+		</d>
+		<d i='printerwritesequencestring'>
+			<m><![CDATA[ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ]]></m>
+		</d>
+		<d i='sidesdifferent'>
+			<m>true</m>
+		</d>
+		<d i='streakremovalaggressiveness'>
+			<fb00>0</fb00>
+			<rb00>0</rb00>
+			<fc00>0</fc00>
+			<rc00>0</rc00>
+		</d>
+		<d i='streakremoval'>
+			<fb00>true</fb00>
+			<rb00>true</rb00>
+			<fc00>true</fc00>
+			<rc00>true</rc00>
+		</d>
+		<d i='imagepreset'>
+			<m>a4</m>
+		</d>
+		<d i='binarizationthreshold'>
+			<fb00>90</fb00>
+			<rb00>90</rb00>
+		</d>
+		<d i='patchtogglemode'>
+			<m>none</m>
+		</d>
+		<d i='adftimeout'>
+			<m>2</m>
+		</d>
+		<d i='multifeeduddssensitivity'>
+			<m>none</m>
+		</d>
+		<d i='multifeeduddssensorcenter'>
+			<m>true</m>
+		</d>
+		<d i='multifeeduddssensorleft'>
+			<m>true</m>
+		</d>
+		<d i='multifeeduddssensorright'>
+			<m>true</m>
+		</d>
+		<d i='windowtag'>
+			<enum>
+				<v>frontbitonal_00</v>
+				<v>frontcolor_00</v>
+				<v>rearbitonal_00</v>
+				<v>rearcolor_00</v>
+			</enum>
+		</d>
+		<d i='imageresolutionx'>
+			<fb00>200_dpi</fb00>
+			<rb00>200_dpi</rb00>
+			<fc00>200_dpi</fc00>
+			<rc00>200_dpi</rc00>
+		</d>
+	</database>
+</profile>
+ 

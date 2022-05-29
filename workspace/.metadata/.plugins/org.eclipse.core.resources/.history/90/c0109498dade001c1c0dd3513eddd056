@@ -1,0 +1,368 @@
+package br.com.webscanner.model.domain.export.transp01;
+
+import static br.com.webscanner.util.FileManagement.writeUtf8;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
+import java.nio.charset.Charset;
+import java.nio.file.Paths;
+import java.rmi.RemoteException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
+import javax.xml.rpc.ServiceException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import br.com.dao.StartService;
+import br.com.webscanner.exception.ExportException;
+import br.com.webscanner.infra.WebScannerConfig;
+import br.com.webscanner.infra.i18n.Bundle;
+import br.com.webscanner.model.domain.Document;
+import br.com.webscanner.model.domain.Field;
+import br.com.webscanner.model.domain.Message;
+import br.com.webscanner.model.domain.MessageSupport;
+import br.com.webscanner.model.domain.Product;
+import br.com.webscanner.model.domain.export.Exportable;
+import br.com.webscanner.util.CalendarioUtils;
+import br.com.webscanner.util.CsvBuilder;
+import br.com.webscanner.util.FileManagement;
+import br.com.webscanner.util.StringEncryptor;
+import br.com.webscanner.util.TXTReader;
+import br.com.webscanner.util.WebscannerUtil;
+import br.com.webscanner.util.ZipUtil;
+import br.com.webscanner.view.MainDesenv;
+import br.com.webscanner.view.MessagePanel.MessageLevel;
+
+public class TRANSP01Export implements Exportable {
+
+	private String path = null;
+	private String pathCSV = null;
+	private String pathRomaneio = null;
+	private String pathExportQtd = null;
+	private static Logger logger = LogManager.getLogger(TRANSP01Export.class.getName());
+	DateFormat ano = new SimpleDateFormat("yyyy");
+	DateFormat dia = new SimpleDateFormat("dd");
+	DateFormat mes = new SimpleDateFormat("MM");
+	private static final String TEMP_DIR = System.getProperty("user.home");
+	private boolean exported;
+	private Set<Message> messages = new HashSet<Message>();
+	private final String computerName = StringEncryptor.removerAcentos(System.getenv("computername"));
+	private String ZIP_FILE_PREFIX = "TRANSP01";
+//	private String nomeCSV = null;
+	private File tempFolder = null;
+	MessageSupport suporte = null;
+	private static final String BLANK_PAGE = "paginaEmBranco";
+	private static final int PRIMEIRO_DOCUMENTO = 0;
+	File destinoRomaneios = null;
+	boolean erroAoExportar;
+	boolean notaDupicada = false;
+	public static String numeroVerso = null;
+
+	public TRANSP01Export(String path, String pathCSV, String pathRomaneio, String pathExportQtd) {
+		this.path = path;
+		this.pathCSV = pathCSV;
+		this.pathRomaneio = pathRomaneio;	
+		this.pathExportQtd = pathExportQtd;
+    	this.tempFolder = new File("C:" + System.getProperty("file.separator") + "Nota Fiscal");
+	}
+
+	@Override
+	public void export(Product product) throws ExportException {
+		logger.info("Iniciando a exportação do produto TRANSP01");
+		FileManagement fm = new FileManagement();
+		messages.clear();
+		List<Document> documentosTodos = WebscannerUtil.removerPaginasEmBranco(product.getDocuments(), BLANK_PAGE);;
+		List<File> listaDir = new ArrayList<File>();
+		List<Document> documentos = new ArrayList<Document>();
+		List<Document> romaneios = new ArrayList<Document>();
+		//Verifica se a pasta está criada e cria a mesma caso não esteja
+		erroAoExportar = false;
+		String erroLocal = null;
+		String erroServer = null;
+		
+		List <String> protocolos =  new ArrayList<>();
+    	int currentDoc = -1;
+    	
+	
+	    
+	    
+	    verificarECriarPasta(tempFolder);
+		File pastaNFs = new File( tempFolder + System.getProperty("file.separator") +  "NFs");
+		verificarECriarPasta(pastaNFs);
+		File pastaCSVs = new File( tempFolder + System.getProperty("file.separator") +  "CSVs" +System.getProperty("file.separator") + "Fila");
+	    verificarECriarPasta(pastaCSVs);
+	    File pastaRomaneios = new File( tempFolder + System.getProperty("file.separator") +  "Romaneios");
+	    verificarECriarPasta(pastaRomaneios);
+		
+		File dirDocs = null;
+	
+		try {
+
+			String primeiroProtocolo = documentosTodos.get(0).getFieldById(1).getValue().toString();
+			boolean primeiroDoc = true;
+	        String currentProtocolNumber = null;
+	        int contador = -1;
+	        List<Field> fields = null;
+			for (Document documento : documentosTodos) {
+				contador ++;
+			if(!documento.getName().equals("Nota Fiscal") && !documento.getDocumentModel().getName().toString().equals("romaneio") ){
+				documentos.add(documento);
+			}else{
+			 documentos.add(documento);
+			}
+			}
+			
+			criarCSV(documentos, pastaCSVs);
+			criarCSV(documentos, new File(pathCSV));
+
+			int cont = -1;
+			int contRomaneio = 0;
+			for (Document documentoAtual : documentosTodos) {
+				int contaDoc = 0;
+				 notaDupicada = false;
+				       
+				
+					DateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmssSSS");
+					cont++;
+					
+					String valorProtocolo  = null;
+					String valorRomaneio = null;
+					 
+					if (documentoAtual.getDocumentModel().getName().equals("NF") || documentoAtual.getDocumentModel().getName().equals("NF2")){ 
+					valorProtocolo = documentoAtual.getFieldByName("numeroNota").getValue().toString();
+					numeroVerso = valorProtocolo;
+					}
+					else if (documentoAtual.getDocumentModel().getName().equals("romaneio")){
+					valorRomaneio = documentoAtual.getFieldByName("protocolo").getValue().toString();
+					}
+			
+					
+					if(valorProtocolo != null) {
+						int tamanhoNumeroNota = valorProtocolo.length();
+						String zerosNotas = null;
+						while (tamanhoNumeroNota < 9) {
+							if (zerosNotas == null)
+								zerosNotas = "0";
+							else
+								zerosNotas += "0";	
+							
+							tamanhoNumeroNota++;
+						}
+						if (zerosNotas != null)
+							valorProtocolo = zerosNotas + valorProtocolo;
+						
+					}
+					
+					if(protocolos.size() > 0 && !documentoAtual.getDocumentModel().getName().equals("romaneio") ) {
+					for (String protocoloAtual : protocolos) {
+						if(null != valorProtocolo && valorProtocolo.equals(protocoloAtual)) 
+						{
+							notaDupicada = true;
+						}
+					}
+					}
+					if (valorProtocolo != null) {
+						protocolos.add(valorProtocolo);
+					}
+					contaDoc++;
+					currentDoc ++;
+					
+					if(!notaDupicada) {
+					String nomeImagem = documentoAtual.getName() +".jpg";
+						if (documentoAtual.getDocumentModel().getName().equals("NF") || documentoAtual.getDocumentModel().getName().equals("NF2") ) {
+							nomeImagem = valorProtocolo+".jpg";
+						}else if (documentoAtual.getDocumentModel().getName().equals("romaneio")){
+							nomeImagem = valorRomaneio;
+						}else{
+							nomeImagem = numeroVerso + "_V.jpg";
+						}
+						
+						try {
+							if (documentoAtual.getDocumentModel().getName().equals("NF") || documentoAtual.getDocumentModel().getName().equals("NF2")){
+						    logger.info("INICIANDO EXPORTAÇÃO DA NOTA FISCAL PARA PASTA LOCAL");
+							FileManagement.copy(documentoAtual.getContent().getJpgFile(), new File(pastaNFs+System.getProperty("file.separator")+nomeImagem));
+							logger.info("NOTA FISCAL: "+ documentoAtual.getFieldById(1).getValue().toString() +"EXPORTADA COM SUCESSO");
+							}else if (documentoAtual.getDocumentModel().getName().equals("romaneio")) {
+								logger.info("INICIANDO EXPORTAÇÃO DO ROMANEIO PARA PASTA LOCAL");
+								contRomaneio++;
+								String DestinoRomaneio = destinoRomaneios.toString();
+								FileManagement.copy(documentoAtual.getContent().getJpgFile(), new File(destinoRomaneios+System.getProperty("file.separator")+nomeImagem + "_"+contRomaneio+".jpg"));
+								logger.info("ROMANEIO: "+ documentoAtual.getFieldById(1).getValue().toString() +"EXPORTADA COM SUCESSO");
+							}
+							else{
+					          	   logger.info("INICIANDO EXPORTAÇÃO DO VERSO PARA PASTA LOCAL");
+									FileManagement.copy(documentoAtual.getContent().getJpgFile(), new File(pastaNFs+System.getProperty("file.separator")+nomeImagem));
+							}
+							}catch (Exception e) {
+							// TODO: handle exception
+								erroAoExportar = true;
+								erroLocal = String.valueOf(e);
+							logger.error("ERRO AO EXPORTAR A NOTA FISCAL : " + documentoAtual.getFieldByName("numeroNota").getValue().toString() + "PARA A PASTA LOCAL," + e);
+						
+							}
+						
+						try {
+								
+						
+							if (documentoAtual.getDocumentModel().getName().equals("NF") || documentoAtual.getDocumentModel().getName().equals("NF2")){
+							    logger.info("INICIANDO EXPORTAÇÃO DA NOTA FISCAL PARA PASTA LOCAL");
+							    FileManagement.copy(documentoAtual.getContent().getJpgFile(), new File(path+System.getProperty("file.separator")+nomeImagem))	;	
+								logger.info("NOTA FISCAL: "+ documentoAtual.getFieldById(1).getValue().toString() +"EXPORTADA COM SUCESSO");
+								}else if (documentoAtual.getDocumentModel().getName().equals("romaneio")) {
+								logger.info("INICIANDO EXPORTAÇÃO DO ROMANEIO PARA O SERVIDOR");
+								String DestinoRomaneioServer = pathRomaneio +System.getProperty("file.separator")+ documentoAtual.getFieldById(1).getValue().toString();
+								File romaneioServer  = new File(DestinoRomaneioServer);
+								verificarECriarPasta(romaneioServer);
+								
+								FileManagement.copy(documentoAtual.getContent().getJpgFile(), new File(DestinoRomaneioServer+System.getProperty("file.separator")+nomeImagem + "_"+contRomaneio+".jpg"))	;	
+								logger.info("ROMANEIO: "+ documentoAtual.getFieldById(1).getValue().toString() +"EXPORTADA COM SUCESSO");
+								}else{
+						          	   logger.info("INICIANDO EXPORTAÇÃO DO VERSO PARA PASTA O SERVIDOR");
+										FileManagement.copy(documentoAtual.getContent().getJpgFile(), new File(pastaNFs+System.getProperty("file.separator")+nomeImagem));
+								}
+						}catch (Exception e) {
+							// TODO: handle exception
+							erroAoExportar = true;
+							erroServer = String.valueOf(e);
+							System.out.println("ERRO AO EXPORTAR A NOTA FISCAL : " + documentoAtual.getFieldById(1).getValue().toString() + "PARA O SERVIDOR, "+e);
+						
+						}
+					}
+			
+	}
+    if(erroAoExportar) {
+				
+				if(erroLocal != null) {
+					messages.add(new Message(Bundle.getString("ERRO AO EXPORTAR DOCUMENTOS PARA PASTA LOCAL : " + erroLocal),
+							MessageLevel.ERROR));
+				}else if(erroServer != null) {
+					messages.add(new Message(Bundle.getString("ERRO AO EXPORTAR DOCUMENTOS PARA SERVIDOR : " + erroServer),
+							MessageLevel.ERROR));
+				}
+			}else {
+				try {
+					boolean enviarQtdBanco =  StartService.RegistrarQtd("SYG", documentosTodos.size());
+					if(!enviarQtdBanco)
+						logger.error("ERRO AO ENVIAR QUANTIDADE PARA BANCO");
+					else
+						logger.error("QUANDIDADE DE DOCUMENTOS ARMAZENADA COM SUCESSO");
+						
+				}catch (Exception e){
+					logger.error("ERRO AO ENVIAR QUANDIDADE PARA BANCO" + e);
+				}
+					messages.add(new Message(Bundle.getString("Lote exportado com sucesso!"),
+							MessageLevel.INFO));
+			}		
+		}catch (Exception e) {
+		// TODO: handle exception
+		logger.error("Error. ", e);
+		System.out.println(e.getMessage() + "    " + e.getCause());
+		
+		}
+}
+	
+
+	private File criarCSV(List<Document> documentos, File dirDocs) throws IOException, ParseException {
+
+		DateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmssSSS");
+
+		String primeiroDocumento = "Csv_Notas_Fiscais_"+formatter.format(new Date() );
+		
+		CsvBuilder csv = new CsvBuilder();
+		csv.addColumn("Numero de Protocolo");
+		csv.addColumn("Numero de Nota Fiscal");
+		csv.addColumn("Data de Digitalizacao");
+		csv.addColumn("Status");
+		csv.addColumn("Horario da Digitalizacao");
+		csv.newRow();
+
+		File arquivo = null;
+
+		String nomeArquivo = null;
+
+		for (int i = 0; i < documentos.size(); i++) {
+			if(!documentos.get(i).getDocumentModel().getName().toString().equals("romaneio")) {
+			nomeArquivo = documentos.get(i).getName();
+
+			String extensao = "jpg";
+            
+			int camposProtocolo = 0;
+			
+			if(documentos.get(i).getDocumentModel().getName().equals("NF") || documentos.get(i).getDocumentModel().getName().equals("NF2")){
+			String valorProtocolo = documentos.get(i).getFieldById(1).getValue().toString();
+			int tamanhoNumeroNota = valorProtocolo.length();
+			String zerosNotas = null;
+			while (tamanhoNumeroNota < 9) {
+			if (zerosNotas == null)
+			zerosNotas = "0";
+			else
+			zerosNotas += "0";			
+			
+			tamanhoNumeroNota++;
+			}
+			if (zerosNotas != null)valorProtocolo = zerosNotas + valorProtocolo;
+            	
+			csv.addColumn("P" + "000000000000000000000000" + valorProtocolo + "00000000000");
+			csv.addColumn("P" + valorProtocolo);
+			csv.addColumn(documentos.get(i).getDateCapture());
+			numeroVerso =  valorProtocolo;
+			}else {
+			String finalVerso = "_V";
+			csv.addColumn("P" + "000000000000000000000000" + numeroVerso + "00000000000" + finalVerso); 
+			csv.addColumn("P" + numeroVerso + finalVerso); 
+			csv.addColumn(documentos.get(i).getDateCapture());
+			}
+			
+			csv.newRow();
+			}
+		}
+		String textoCSV = csv.getCsv();
+		return writeUtf8(textoCSV, new File(dirDocs + System.getProperty("file.separator") + primeiroDocumento
+				+  ".csv"), Charset.forName("UTF-8"));
+	}
+
+
+	
+  public void verificarECriarPasta(File pasta) {
+	  if (!pasta.exists()) {
+			FileManagement.createFolder(String.valueOf(pasta));
+		}
+  }
+	
+	@Override
+	public boolean isExported() {
+		return this.exported;
+	}
+
+	@Override
+	public void exportCompleted() {
+		this.exported = false;
+	}
+
+	@Override
+	public Set<Message> getMessages() {
+		return this.messages;
+	}
+
+	@Override
+	public void setMessageSupport(MessageSupport support) {
+		this.suporte = support;
+	}
+
+}

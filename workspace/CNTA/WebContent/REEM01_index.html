@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>REEM01 - Inicio</title>
+</head>
+<body onload="loadPage();">
+	<style type="text/css">
+	h1{
+		font-size: 25px;
+		font-family: Arial, Tahoma, Verdana;
+		color: #00539f;
+		text-align: left;
+		margin:15;
+		text-transform : uppercase;
+		font-weight: bold;
+	}
+	
+	body, input[type=submit]{
+		font-family: Arial, Tahoma, Verdana;
+		font-size: 16px;
+		color: #636161;
+		margin: 0px;
+		background-color: #f8f8f8;
+	}
+	
+	button{
+		background-color:#00539f;
+		border:none;
+		color:#fff;
+		font-size: 15px;
+		font-weight: bold;
+		height: 47px;
+		text-align:center;
+		text-decoration:none;
+		text-transform:uppercase;
+		margin-left:0;
+		cursor:pointer;
+		min-width:156px;
+		overflow:visible;
+		padding-left: 3px;
+		padding-right: 3px;
+		float:right;
+	}
+	
+	input[type=text], input[type=number], select {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 2px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+		background-color: #fff;
+	}
+	input[type=text]:focus, input[type=number]:focus{
+		border: 2px solid #005999;
+	}
+	select:focus{
+		border: 2px solid #005999;
+	}
+	option:focus{
+		border: 2px solid #005999;
+	}
+	
+	button:hover{
+		border: 2px solid white;
+	}
+
+	#center-form {
+		height:auto;
+		margin-top: 20px;
+		padding: 20px;
+		background-color: rgb(245,245,245,1);
+		border-radius: 4px;
+	}
+	#container {
+		height: 500px;
+		width: 400px;
+		margin: 0 auto;
+		margin-top:10%;
+		border: thin solid #FFF;
+		background-color: #f5f5f5;
+	}
+	.campo-erro{
+		border: 2px solid #9e1321!important;
+	}
+</style>
+
+<div id="container">
+	<div id="center-form">
+		<h1>Reembolso</h1>
+		<form id="formulario" onsubmit="return false;">
+			<label for="fCnpj">CNPJ: </label>
+			<input type="text" id="fCnpj" name="CNPJ" onblur="if(!validaCNPJ()){alert('CNPJ Incorreto');this.value='';}" maxlength="14" required="true" disabled="disabled">
+			<label for="ftipo">Tipo: </label>
+			<select name="TIPO" id="ftipo" required="true">
+				<option value="" disabled>Selecione</option>
+				<option value="RECIBO">Recibo</option>
+				<option value="NF">Nota Fiscal</option>
+			</select>
+
+			<label for="fplaca">Placa: </label>
+			<input type="text" id="fplaca" name="PLACA" onkeyup="validarCaractere(this.value, this.name)" maxlength="7" required="true" pattern="[a-zA-Z0-9]+">
+
+			<label for="fsinistro">Sinistro: </label>
+			<input type="number" id="fsinistro" onkeyup="validarCaractere(this.value, this.name)" name="SINISTRO" maxlength="30" required="true">
+			
+			<div id="divNF" style="display: none;" onclick="exibirNF()"> 
+				<label for="fnumeroDanf">Nota Fiscal: </label>
+				<input type="text" id="fnumeroDanf" onkeyup="validarCaractere(this.value, this.name)" name=NUMERODANF maxlength="30">
+			</div>			
+			
+			<button onclick="iniciaGccd()">Capturar</button>
+		</form>
+	</div>	
+</div>
+
+<script type="text/javascript">
+	//variaveis
+	var fCnpj = document.getElementById('fCnpj');
+	var fplaca = document.getElementById('fplaca');
+	var fsinistro = document.getElementById('fsinistro');
+	var fnumeroDanf = document.getElementById('fnumeroDanf');
+	var ftipo = document.getElementById('ftipo');
+		
+	function exibirNF() {			
+			if (ftipo.value === "NF") {
+				document.getElementById('divNF').style.display = 'block';    	
+			} else {
+       			document.getElementById('divNF').style.display = 'none';
+  			}
+		}
+	
+	//mascaras
+	function maskCnpj() {
+		if(fCnpj.value.length < 14)
+			fCnpj.value = fCnpj.value.replace(/[\sa-zA-Z\.\-\+\*\/\,]/g, "");
+		else
+			fCnpj.value = fCnpj.value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3/\$4-\$5");
+	}
+	function maskPlaca() {
+		fplaca.value = fplaca.value.toUpperCase();
+		if(fplaca.value.length <= 3){
+			fplaca.value = fplaca.value.replace(/[\s0-9]/g, "");
+		}else{
+			fplaca.value = fplaca.value.replace(/([a-zA-Z]{3})(\d{4})/g, "\$1\-\$2");
+		}
+	}
+	function maskSinistro(){
+		fsinistro.value = fsinistro.value.replace(/[\sa-zA-Z\.\-\+\*\/\,]/g, "");
+	}
+	function maskNumeroDanf(){
+		fnumeroDanf.value = fnumeroDanf.value.replace(/[\sa-zA-Z\.\-\+\*\/\,]/g, "");
+	}
+
+	//listeners
+	if(fCnpj.addEventListener) {
+		fCnpj.addEventListener('keyup', maskCnpj);
+	}else {
+		fCnpj.attachEvent('onkeyup', maskCnpj);
+	}
+	
+	if(fplaca.addEventListener) {
+		fplaca.addEventListener('keyup', maskPlaca);
+	}else {
+		fplaca.attachEvent('onkeyup', maskPlaca);
+	}
+
+	if(fsinistro.addEventListener) {
+		fsinistro.addEventListener('keyup', maskSinistro);
+	}else {
+		fsinistro.attachEvent('onkeyup', maskSinistro);
+	}
+
+	if(ftipo.addEventListener) {
+		ftipo.addEventListener('change', exibirNF);
+	}else {
+		ftipo.attachEvent('onchange', exibirNF);
+	}
+
+	if(fnumeroDanf.addEventListener) {
+		fnumeroDanf.addEventListener('keyup', maskNumeroDanf);
+	}else {
+		fnumeroDanf.attachEvent('onkeyup', maskNumeroDanf);
+	}
+
+	function validaCNPJ() {
+	var c = fCnpj.value;
+    var b = [6,5,4,3,2,9,8,7,6,5,4,3,2];
+
+	
+	if((c = c.replace(/[^\d]/g,"")).length == 0)
+		return true;
+    else if((c = c.replace(/[^\d]/g,"")).length != 14 )	
+        return false;
+
+    if(/0{14}/.test(c))
+        return false;
+
+    for (var i = 0, n = 0; i < 12; n += c[i] * b[++i]);
+    if(c[12] != (((n %= 11) < 2) ? 0 : 11 - n))
+        return false;
+
+    for (var i = 0, n = 0; i <= 12; n += c[i] * b[i++]);
+    if(c[13] != (((n %= 11) < 2) ? 0 : 11 - n))
+        return false;
+
+    return true;
+	};
+	
+	
+	function validarCaractere(campo, nome) {
+		  //se não desejar números é só remover da regex abaixo
+		  var regex = '[^a-zA-Z0-9]+';
+		  if(campo.match(regex)) {
+			   //encontrou então não passa na validação
+		alert("Caracter incorreto");
+				if(nome == "PLACA"){
+				fplaca.value='';
+				fplaca.focus();
+				}else if(nome == "SINISTRO"){
+				fsinistro.value='';
+				fsinistro.focus();
+				}else{
+				fnumeroDanf.value='';
+				fnumeroDanf.focus();
+				}
+		  }
+		  else {
+			   //não encontrou caracteres especiais
+		return true;
+		  }
+	}
+
+	
+	function placaValida(){  
+		if(fplaca.value.length > 0){
+			if (!fplaca.value.match(/[a-z]{3}-?\d{4}/gim)) {
+				if(fplaca.classList)
+					fplaca.classList.add("campo-erro");
+				else
+					alert('Placa Invalida!');
+					fplaca.value='';
+					fplaca.focus();
+			}else{
+				if(fplaca.classList){
+					fplaca.classList.remove("campo-erro");
+				}else{
+					fplaca.className = fplaca.className.replace("campo-erro", "");
+				}
+			}
+		}
+	}
+	
+	
+		function loadPage() {
+		getURLCpfCnpj('cpfCnpj');
+		maskCnpj(); 		
+	}
+	
+	
+	
+	function getParameterByName(name, url) {
+   		if (!url) url = window.location.href;
+    		name = name.replace(/[\[\]]/g, "\\$&");
+    	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
+   		if (!results) return null;
+    		if (!results[2]) return '';
+    	return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+	
+	
+	
+	function iniciaGccd() {
+		var fCnpj = document.getElementById('fCnpj');
+		var fplaca = document.getElementById('fplaca');
+		var fsinistro = document.getElementById('fsinistro');
+		var ftipo = document.getElementById('ftipo');
+		var fnumeroDanf = document.getElementById('fnumeroDanf');
+				
+		if (ftipo.value === "NF" && (fnumeroDanf.value == null || fnumeroDanf.value == "")) {
+			alert("Preencher campo Nota Fiscal!");
+			fnumeroDanf.focus();
+		}
+
+		else if(fCnpj.value != "" && fplaca.value != "" && fsinistro.value != "" &&
+		   (ftipo.value != "null" ||  ftipo.value === "NF")) {
+
+		  	fCnpj.value = fCnpj.value.replace(/[\sa-zA-Z\.\-\+\*\/\,]/g, "");
+			fplaca.value = fplaca.value.replace("-", "");
+			var url_atual = window.location.href;
+		    // Alterar o valor do localhost para o IP da mÃ¡quina		
+			//var origin = url_atual.replace("REEM01_index.html","");
+			var origin = url_atual.split("REEM01_index.html")[0];
+			
+			var pathGccd = 'index.html';
+			var parameters = '?product=REEM01&cpfCnpj='+fCnpj.value+'&tipo='+ftipo.value+fnumeroDanf.value+'&placa='+fplaca.value+'&sinistro='+fsinistro.value;
+			window.open(origin+pathGccd+parameters,'REEM01','width=800,height=600,top=0,left=0,screenX=0,screenY=0,status=no,scrollbars=no,toolbar=yes,resizable=yes,menubar=no,location=no').resizeTo(800,600);
+			}
+
+		else{
+			alert("Todos os campos devem ser preenchidos.");
+		}
+		return false;
+	}
+	
+function getURLCpfCnpj( param, url ) {
+                param = param.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+                var regexS = "[\\?&]"+param+"=([^&#]*)";
+                var regex = new RegExp( regexS );
+                
+                if (typeof url == "undefined")
+                    var results = regex.exec( window.location.href );
+                else
+                    var results = regex.exec( url );
+ 
+                if( results == null ){
+                    return "";
+                }
+                else {
+					
+					
+                     document.getElementById('fCnpj').value = decodeURI(results[1]);
+                }
+            }
+</script>
+</body>
+</html>
